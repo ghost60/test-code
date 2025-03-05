@@ -92,7 +92,7 @@ function fn(str1, str2){
     obj2[char] ? obj2[char] = obj2[char]+1 : obj2[char]=1
   }
   for (key in obj1) {
-    if (obj1[key] !== obj2[k]) {
+    if (obj1[key] !== obj2[key]) {
       return false
     }
   }
