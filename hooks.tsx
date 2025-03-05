@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useContext, useReducer, useMemo, useCallback, useRef, useLayoutEffect, useImperativeHandle, useDebugValue } from 'react'
 // 使用useEffect
 function App(){
   useEffect(()=>{
@@ -167,19 +168,10 @@ function App(){
   return <div>hello</div>
 }
 // 使用hooks模拟shouldComponentUpdate
-function App(){
-  const [count, setCount] = useState(0)
-  const [double, setDouble] = useState(0)
-  useEffect(()=>{
-    setDouble(count*2)
-  }, [count])
-  return (
-    <>
-      <div>{double}</div>
-      <button onClick={()=>setCount(count+1)}>+</button>
-    </>
-  )
+const App = React.memo(_App, (prevProps, nextProps)=>{
+  return prevProps.count === nextProps.count
 }
+
 // 使用hooks模拟componentDidCatch
 function App(){
   const [error, setError] = useState(null)
