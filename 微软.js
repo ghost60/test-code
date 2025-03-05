@@ -50,7 +50,7 @@ function curry(fn){
 
 function curry(fn){
   return function curried(...args){
-    if (args.length > fn.length) {
+    if (args.length >= fn.length) {
       return fn.apply(this, args)
     }else{
       return function(...moreArgs){
@@ -91,7 +91,7 @@ function fn(str1, str2){
   for (const char of str2) {
     obj2[char] ? obj2[char] = obj2[char]+1 : obj2[char]=1
   }
-  for (key in obj1) {
+  for (const key in obj1) {
     if (obj1[key] !== obj2[key]) {
       return false
     }

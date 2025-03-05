@@ -53,7 +53,9 @@ function create(proto){
   F.prototype = proto;
   return new F()
 }
-
+function create(obj){
+  return Object.setPrototypeOf({}, obj)
+}
 //实现深拷贝
 function deepClone(obj, map = new WeakMap()){
   if (obj instanceof RegExp) return new RegExp(obj);
