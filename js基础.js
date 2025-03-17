@@ -56,6 +56,24 @@ function create(proto){
 function create(obj){
   return Object.setPrototypeOf({}, obj)
 }
+
+//手写 instanceof
+function myInstanceof(obj, fn){
+  let proto = obj.__proto__;
+  while(proto){
+    if (proto === fn.prototype) {
+      return true
+    }
+    proto = proto.__proto__;
+  }
+  return false
+}
+
+// 手写检查数据类型
+function checkType(data){
+  return Object.prototype.toString.call(data).slice(8, -1).toLowerCase()
+}
+
 //实现深拷贝
 function deepClone(obj, map = new WeakMap()){
   if (obj instanceof RegExp) return new RegExp(obj);
@@ -86,18 +104,6 @@ function ajax(url, method, data, success, fail){
     }
   }
   xhr.send(data)
-}
-
-//手写 instanceof
-function myInstanceof(obj, fn){
-  let proto = obj.__proto__;
-  while(proto){
-    if (proto === fn.prototype) {
-      return true
-    }
-    proto = proto.__proto__;
-  }
-  return false
 }
 
 //手写 call
