@@ -7,6 +7,39 @@ Array.prototype.myMap = function(fn){
   }
   return arr
 }
+// 实现数组的扁平化
+function flatten(arr){
+  return arr.reduce((pre, cur) => {
+    return pre.concat(Array.isArray(cur) ? flatten(cur) : cur)
+  }, [])
+}
+function flatten(arr){
+  return arr.toString().split(',').map(item => +item)
+}
+
+//手写filter
+Array.prototype.myFilter = function(fn){
+  let arr = [];
+  for (let i = 0; i < this.length; i++) {
+    if (fn(this[i], i, this)) {
+      arr.push(this[i])
+    }
+  }
+  return arr
+}
+//手写reduce
+Array.prototype.myReduce = function(fn, initialValue){
+  let acc = initialValue || this[0];
+  let i = initialValue ? 0 : 1;
+  for (; i < this.length; i++) {
+    acc = fn(acc, this[i], i, this)
+  }
+  return acc
+}
+//手写flatMap
+Array.prototype.myFlatMap = function(fn){
+  return this.map(fn).flat()
+}
 
 // 找数组中的最大值
 function max(arr){

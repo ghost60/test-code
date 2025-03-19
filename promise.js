@@ -91,3 +91,23 @@ class Promise {
   catch(onRejected) {
     return this.then(null, onRejected)
 }
+
+// 实现Promise.race
+Promise.race = (promiseArray) => {
+  return new Promise((resolve, reject) => {
+    promiseArray.forEach(promise => {
+      promise.then(resolve, reject)
+    }
+}
+
+//如何实现 promise.map，限制 promise 并发数量
+function pMap(list, mapper, cur) {
+  cur = cur || list.length;
+  let step = Promise.resolve();
+  do {
+    let temp = list.splice(0, cur);
+    step = step.then(() => {
+      return Promise.all(temp.map(i, index) => Promise.resolve(i).then((e) => mapper(e, index)))
+    })
+  }
+}
