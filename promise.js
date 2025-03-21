@@ -99,6 +99,38 @@ Promise.race = (promiseArray) => {
       promise.then(resolve, reject)
     }
 }
+//Promise.all
+function myPromiseAll(promises) {
+  return new Promise((resolve, reject) => {
+    if (!Array.isArray(promises)) {
+      return reject(new TypeError('Argument must be an array'));
+    }
+
+    const results = []; // 存储每个 Promise 的结果
+    let completedCount = 0; // 记录已完成的 Promise 数量
+
+    if (promises.length === 0) {
+      return resolve(results); // 如果传入空数组，直接返回空结果
+    }
+
+    promises.forEach((promise, index) => {
+      // 确保每个元素是 Promise
+      Promise.resolve(promise)
+        .then((result) => {
+          results[index] = result; // 将结果存入对应位置
+          completedCount++;
+
+          // 当所有 Promise 都完成时，返回结果
+          if (completedCount === promises.length) {
+            resolve(results);
+          }
+        })
+        .catch((error) => {
+          reject(error); // 如果任何一个 Promise 失败，立即失败
+        });
+    });
+  });
+}
 
 //如何实现 promise.map，限制 promise 并发数量
 function pMap(list, mapper, cur) {
